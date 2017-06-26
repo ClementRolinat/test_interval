@@ -28,5 +28,5 @@ tools.o: tools.h
 	$(CXX) -c $< -o $@ $(CXXFLAGS) $(LIBS)
 
 clean:
-	rm -rf *.bak rm -rf *.o ibexring
+	rm -rf *.bak rm -rf *.o ibexring ibexSLAM
 	
