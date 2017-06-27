@@ -13,7 +13,6 @@ using namespace ibex;
 int main(int argc, char** argv) {
     float epsilon = 0.1;
     vibes::beginDrawing();
-    //doesn't work...
     vibes::newFigure("MyCtc: one ring with ibex");
     vibes::setFigureProperties(vibesParams("x", 200, "y", 100, "width", 800, "height", 800));
 
@@ -72,6 +71,18 @@ int main(int argc, char** argv) {
 
     sivia(X4, sep6, epsilon);
 
+    // by using set of ibex
+    vibes::newFigure("ring with set of ibex");
+    vibes::setFigureProperties(vibesParams("x", 200, "y", 100, "width", 800, "height", 800));
+    NumConstraint c1("x", "y", "(x-[1,1.1])^2+(y-[2,2.1])^2 <= 25");
+    NumConstraint c2("x", "y", "(x-[1,1.1])^2+(y-[2,2.1])^2 >= 16");
+
+    Set myset(c1, epsilon);
+    Set set2(c2, epsilon);
+    myset &= set2;
+
+    ToVibes to_vibes(20);
+    myset.visit(to_vibes);
 
     vibes::endDrawing();
 }

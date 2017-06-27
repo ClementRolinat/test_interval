@@ -32,6 +32,42 @@ public:
     }
 };
 
+class ToVibes : public SetVisitor {
+public:
+  /**
+   * Plot a  box within the frame [-max,max]x[-max,max]
+   *
+   * The frame avoids, in particular, to plot unbounded OUT boxes.
+   */
+    ToVibes(double max) : frame(2,max*Interval(-1,1)) {  }
+
+  /**
+   * Function that will be called automatically on every boxes (leaves) of the set.
+   */
+    void visit_leaf(const IntervalVector& box, BoolInterval status) {
+
+    // Intersect the box with the frame
+    IntervalVector framebox=box & frame;
+
+    //  Associate a color to the box.
+    //  - YES (means "inside") is in red
+    //  - NO (means "outside") is in blue
+    //  - MAYBE (means "boundary") is in yellow.
+    const char* color;
+
+    switch (status) {
+    case YES:  color="[red]"; break;
+    case NO:   color="black[cyan]"; break;
+    case MAYBE : color="[yellow]"; break;
+    }
+
+    // Plot the box with Vibes
+    vibes::drawBox(framebox[0].lb(), framebox[0].ub(), framebox[1].lb(), framebox[1].ub(), color);
+  }
+
+   IntervalVector frame;
+};
+
 
 float width(const Interval& x);
 
