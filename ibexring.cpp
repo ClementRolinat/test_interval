@@ -39,8 +39,8 @@ int main(int argc, char** argv) {
 
     IntervalVector X2(2, _X);
 
-    Function f2("x[2]", "(x[0]-[1,1.1])^2+(x[1]-[2,2.1])^2");
-    SepFwdBwd sep1(f2, sqr(Interval(4,5)));
+    Function f2("x[2]", "(x[0]-[1.9,2.1])^2+(x[1]-[2.9,3.1])^2");
+    SepFwdBwd sep1(f2, sqr(Interval(4,5.5)));
     SepFwdBwd sep2(f2, sqr(Interval(2,3)));
 
     vibes::newFigure("SepFwdBwd 1");

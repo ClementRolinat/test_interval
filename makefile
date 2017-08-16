@@ -11,7 +11,7 @@ LIBS	 = $(shell pkg-config --libs  ibex)
 ifeq ($(DEBUG), yes)
 CXXFLAGS := $(CXXFLAGS) -O0 -g -pg -Wall
 else
-CXXFLAGS := $(CXXFLAGS) 
+CXXFLAGS := $(CXXFLAGS)
 endif
 
 ibexring: ibexring.o vibes.o tools.o
@@ -20,9 +20,14 @@ ibexring: ibexring.o vibes.o tools.o
 ibexSLAM: ibexSLAM.o vibes.o tools.o
 	$(CXX) $^ -o ibexSLAM $(CXXFLAGS) $(LIBS)
 
+projection: projection.o sepProj.o vibes.o tools.o
+	$(CXX) $^ -o projection $(CXXFLAGS) $(LIBS)
+
 vibes.o: vibes.h
 
 tools.o: tools.h
+
+sepProj.o: sepProj.h
 
 %.o: %.c
 	$(CXX) -c $< -o $@ $(CXXFLAGS) $(LIBS)
